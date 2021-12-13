@@ -5,6 +5,10 @@ settingsButton.click();
 settingsButton.click();
 let updateElement: HTMLSpanElement | undefined;
 function main(): void {
+  if (window.location.pathname !== '/watch') {
+    setTimeout(main, 2000);
+    return;
+  }
   const speedElement: HTMLDivElement = Array.from(
     (
       Array.from(document.querySelectorAll('div.ytp-menuitem')).find(
@@ -63,7 +67,7 @@ observer.observe(document.querySelector('.ytp-time-current'), {
   childList: true,
 });
 
-main();
+setTimeout(main, 2000);
 
 function parseTime(time: Date): string {
   let result: string = '';
