@@ -12,19 +12,9 @@ function main(redirect: boolean = true): void {
     settingsButton.click();
     settingsButton.click();
   }
-  const speedElement: HTMLDivElement = Array.from(
-    (
-      Array.from(document.querySelectorAll('div.ytp-menuitem')).find(
-        (element: HTMLDivElement): boolean =>
-          Array.from(element.childNodes).find(
-            (child: ChildNode): boolean =>
-              (child as HTMLDivElement).innerHTML === 'Playback speed'
-          ) !== undefined
-      ) as HTMLDivElement
-    ).childNodes
-  ).find((node: ChildNode): boolean =>
-    (node as HTMLDivElement).classList.contains('ytp-menuitem-content')
-  ) as HTMLDivElement;
+  const speedElement: HTMLDivElement = document.querySelector(
+    'div.ytp-menuitem:nth-last-child(3) > div:nth-child(3)'
+  );
   const speed: number = !isNaN(Number(speedElement.innerHTML))
     ? Number(speedElement.innerHTML)
     : 1;

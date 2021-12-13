@@ -33,7 +33,6 @@ Run `tsc -p .` in the root directory of this project
 
 - This plugin will not update automatically. If it does not work for you, check the [releases](https://github.com/TrojanerHD/youtube-remaining-time/releases) page to check if there is a new version
 - I do not guarantee to update this addon
-- This extension only works if YouTube's language is set to English. If you want your language added, please open an [issue](https://github.com/TrojanerHD/youtube-remaining-time/issues/new)
 - Currently, this plugin only works for the domain `youtube.com`. Other countries's domains (like `youtube.de`) are not supported. If you want your country's domain added, please open an [issue](https://github.com/TrojanerHD/youtube-remaining-time/issues/new)
 - This plugin is only localized in English. If you run YouTube in a different language, all text from the plugin will still be English
 
