@@ -15,7 +15,7 @@ function main(): void {
           ) !== undefined
       ) as HTMLDivElement
     ).childNodes
-  ).find((node: ChildNode) =>
+  ).find((node: ChildNode): boolean =>
     (node as HTMLDivElement).classList.contains('ytp-menuitem-content')
   ) as HTMLDivElement;
   const speed: number = !isNaN(Number(speedElement.innerHTML))
