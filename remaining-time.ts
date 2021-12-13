@@ -67,8 +67,10 @@ main();
 
 function parseTime(time: Date): string {
   let result: string = '';
-  if (time.getHours() !== 0) result += `${time.getHours()}:`;
-  if (time.getMinutes() < 10) result += '0';
+  if (time.getHours() !== 0) {
+    result += `${time.getHours()}:`;
+    if (time.getMinutes() < 10) result += '0';
+  }
   result += `${time.getMinutes()}:`;
   if (time.getSeconds() < 10) result += '0';
   result += time.getSeconds();
