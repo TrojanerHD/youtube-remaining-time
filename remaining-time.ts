@@ -5,9 +5,19 @@ settingsButton.click();
 settingsButton.click();
 let updateElement: HTMLSpanElement | undefined;
 function main(): void {
-  const speedElement: HTMLDivElement = document.querySelector(
-    'div.ytp-menuitem:nth-child(1) > div:nth-child(3)'
-  );
+  const speedElement: HTMLDivElement = Array.from(
+    (
+      Array.from(document.querySelectorAll('div.ytp-menuitem')).find(
+        (element: HTMLDivElement): boolean =>
+          Array.from(element.childNodes).find(
+            (child: ChildNode): boolean =>
+              (child as HTMLDivElement).innerHTML === 'Playback speed'
+          ) !== undefined
+      ) as HTMLDivElement
+    ).childNodes
+  ).find((node: ChildNode) =>
+    (node as HTMLDivElement).classList.contains('ytp-menuitem-content')
+  ) as HTMLDivElement;
   const speed: number = !isNaN(Number(speedElement.innerHTML))
     ? Number(speedElement.innerHTML)
     : 1;
