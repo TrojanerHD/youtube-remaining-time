@@ -1,7 +1,10 @@
 let updateElement: HTMLSpanElement | undefined;
+const config: MutationObserverInit = { childList: true };
+const observer: MutationObserver = new MutationObserver((): void =>
+  main(false)
+);
 function main(redirect: boolean = true): void {
   if (window.location.pathname !== '/watch') {
-    updateElement = undefined;
     setTimeout(main, 2000);
     return;
   }
@@ -11,6 +14,18 @@ function main(redirect: boolean = true): void {
     );
     settingsButton.click();
     settingsButton.click();
+    observer.disconnect();
+    observer.observe(document.querySelector('.ytp-time-current'), config);
+    observer.observe(
+      document.querySelector(
+        'div.ytp-menuitem:nth-last-child(3) > div:nth-child(3)'
+      ),
+      config
+    );
+    if (updateElement) {
+      updateElement.parentNode.removeChild(updateElement);
+      updateElement = undefined;
+    }
   }
   const speedElement: HTMLDivElement = document.querySelector(
     'div.ytp-menuitem:nth-last-child(3) > div:nth-child(3)'
@@ -37,6 +52,7 @@ function main(redirect: boolean = true): void {
   remainingDate = toLocal(remainingDate);
   if (!updateElement) {
     const mainSpan: HTMLSpanElement = document.createElement('span');
+    mainSpan.className = 'remaining-time';
     mainSpan.appendChild(
       document.createTextNode(`(Remaining: ${parseTime(remainingDate)})`)
     );
@@ -54,11 +70,6 @@ function main(redirect: boolean = true): void {
   }
   updateElement.innerHTML = `(Remaining: ${parseTime(remainingDate)})`;
 }
-
-const observer: MutationObserver = new MutationObserver(() => main(false));
-observer.observe(document.querySelector('.ytp-time-current'), {
-  childList: true,
-});
 
 main();
 
