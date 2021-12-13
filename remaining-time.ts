@@ -16,12 +16,7 @@ function main(redirect: boolean = true): void {
     settingsButton.click();
     observer.disconnect();
     observer.observe(document.querySelector('.ytp-time-current'), config);
-    observer.observe(
-      document.querySelector(
-        'div.ytp-menuitem:nth-last-child(3) > div:nth-child(3)'
-      ),
-      config
-    );
+
     if (updateElement) {
       updateElement.parentNode.removeChild(updateElement);
       updateElement = undefined;
@@ -51,6 +46,12 @@ function main(redirect: boolean = true): void {
   );
   remainingDate = toLocal(remainingDate);
   if (!updateElement) {
+    observer.observe(
+      document.querySelector(
+        'div.ytp-menuitem:nth-last-child(3) > div:nth-child(3)'
+      ),
+      config
+    );
     const mainSpan: HTMLSpanElement = document.createElement('span');
     mainSpan.className = 'remaining-time';
     mainSpan.appendChild(
