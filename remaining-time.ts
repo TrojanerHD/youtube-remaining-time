@@ -1,13 +1,16 @@
-const settingsButton: HTMLButtonElement = document.querySelector(
-  'button.ytp-button:nth-child(9)'
-);
-settingsButton.click();
-settingsButton.click();
 let updateElement: HTMLSpanElement | undefined;
-function main(): void {
+function main(redirect: boolean = true): void {
   if (window.location.pathname !== '/watch') {
+    updateElement = undefined;
     setTimeout(main, 2000);
     return;
+  }
+  if (redirect) {
+    const settingsButton: HTMLButtonElement = document.querySelector(
+      'button.ytp-button:nth-child(9)'
+    );
+    settingsButton.click();
+    settingsButton.click();
   }
   const speedElement: HTMLDivElement = Array.from(
     (
@@ -62,7 +65,7 @@ function main(): void {
   updateElement.innerHTML = `(Remaining: ${parseTime(remainingDate)})`;
 }
 
-const observer: MutationObserver = new MutationObserver(main);
+const observer: MutationObserver = new MutationObserver(() => main(false));
 observer.observe(document.querySelector('.ytp-time-current'), {
   childList: true,
 });
