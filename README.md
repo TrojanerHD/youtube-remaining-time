@@ -26,7 +26,6 @@ Run `tsc -p .` in the root directory of this project
 + This plugin will not update automatically. If it does not work for you, check the [releases](https://github.com/TrojanerHD/youtube-remaining-time/releases) page to check if there is a new version
 + I do not guarantee to update this addon
 + Currently, this plugin only works for the domain `youtube.com`. Other countries's domains (like `youtube.de`) are not supported
-+ The counter updates are not in the same millisecond as the updates of the YouTube time display (meaning the remaining time does not instantly change with the current time, but somewhere in the same second)
 + This plugin is only localized in English. If you run YouTube in a different language, all text from the plugin will still be English
 
 However, feel free to open [issues](https://github.com/TrojanerHD/youtube-remaining-time/issues/new) if the extension does not work for you (make sure you have the newest version installed before reporting an issue) or if you have a suggestion

@@ -58,8 +58,12 @@ function main(): void {
   updateElement.innerHTML = `(Remaining: ${parseTime(remainingDate)})`;
 }
 
+const observer: MutationObserver = new MutationObserver(main);
+observer.observe(document.querySelector('.ytp-time-current'), {
+  childList: true,
+});
+
 main();
-setInterval(main, 1000);
 
 function parseTime(time: Date): string {
   let result: string = '';
