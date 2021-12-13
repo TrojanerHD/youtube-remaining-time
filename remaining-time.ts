@@ -70,7 +70,7 @@ observer.observe(document.querySelector('.ytp-time-current'), {
   childList: true,
 });
 
-setTimeout(main, 2000);
+main();
 
 function parseTime(time: Date): string {
   let result: string = '';
