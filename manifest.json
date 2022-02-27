@@ -6,7 +6,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
-      "js": ["remaining-time.js"]
+      "js": ["build/remaining-time.js"]
     }
   ]
 }

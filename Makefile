@@ -4,8 +4,7 @@ all:
 ifneq ("$(wildcard ./remaining-time.zip)", "")
 	rm remaining-time.zip
 endif
-	cp manifest.json build/
-	cd build && zip ../remaining-time.zip *.js manifest.json
+	zip remaining-time.zip build/*.js manifest.json
 
 clean:
 	rm -r build
