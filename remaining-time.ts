@@ -62,7 +62,7 @@ function main(redirect: boolean = true): void {
     seperatorSpan.appendChild(document.createTextNode(' '));
 
     const timeDisplay: HTMLSpanElement = document.querySelector(
-      '.ytp-time-display > span:nth-child(2)'
+      'div.ytp-left-controls > .ytp-time-display > span:nth-child(2)'
     );
 
     timeDisplay.appendChild(seperatorSpan);
