@@ -1,7 +1,9 @@
 all:
 	echo "Don't forget to increase version"
 	tsc
-	rm remaining-time.zip
+ifneq ("$(wildcard ./remaining-time.zip)", "")
+		rm remaining-time.zip
+endif
 	cp manifest.json build/
 	cd build && zip ../remaining-time.zip *.js manifest.json
 
