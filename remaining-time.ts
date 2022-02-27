@@ -15,7 +15,10 @@ function main(redirect: boolean = true): void {
     settingsButton.click();
     settingsButton.click();
     observer.disconnect();
-    observer.observe(document.querySelector('.ytp-time-current'), config);
+    observer.observe(
+      document.querySelector('div.ytp-left-controls > .ytp-time-display > span > .ytp-time-current'),
+      config
+    );
 
     if (updateElement) {
       updateElement.parentNode.removeChild(updateElement);
@@ -30,13 +33,14 @@ function main(redirect: boolean = true): void {
     : 1;
 
   let remainingTime: string = document.querySelector(
-    'span.ytp-time-duration:nth-child(3)'
+    'div.ytp-left-controls > .ytp-time-display > span > span.ytp-time-duration:nth-child(3)'
   ).innerHTML;
   if (remainingTime.split(':').length === 2)
     remainingTime = `0:${remainingTime}`;
   let remainingDate: Date = new Date(`1970 ${remainingTime}`);
-  let currentTime: string =
-    document.querySelector('.ytp-time-current').innerHTML;
+  let currentTime: string = document.querySelector(
+    'div.ytp-left-controls > .ytp-time-display > span > .ytp-time-current'
+  ).innerHTML;
   if (currentTime.split(':').length === 2) currentTime = `0:${currentTime}`;
   remainingDate = toUTC(remainingDate);
   remainingDate.setTime(
