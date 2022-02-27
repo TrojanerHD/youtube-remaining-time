@@ -27,7 +27,7 @@ Normal speed:
 
 ### Compiling
 
-Run `tsc -p .` in the root directory of this project
+Run `make` in the root directory of this project
 
 ## Limitations / Additional Notes
 
@@ -37,3 +37,7 @@ Run `tsc -p .` in the root directory of this project
 - This plugin is only localized in English. If you run YouTube in a different language, all text from the plugin will still be English
 
 However, feel free to open [issues](https://github.com/TrojanerHD/youtube-remaining-time/issues/new) if the extension does not work for you (make sure you have the newest version installed before reporting an issue) or if you have a suggestion
+
+### Makefile
++ make all: Builds addon into file `remaining-time.zip`
++ make clean: Deletes build folder and `remaining-time.zip`
