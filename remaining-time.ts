@@ -1,65 +1,33 @@
 let updateElement: HTMLSpanElement | undefined;
-const config: MutationObserverInit = { childList: true };
-const observer: MutationObserver = new MutationObserver((): void =>
-  main(false)
-);
-function main(redirect: boolean = true): void {
-  if (window.location.pathname !== '/watch') {
+let videoExists: boolean = false;
+
+function main(): void {
+  const video: HTMLVideoElement = document.querySelector('video');
+  if (video === undefined || window.location.pathname !== '/watch') {
+    videoExists = false;
     setTimeout(main, 2000);
     return;
   }
-  if (redirect) {
-    const settingsButton: HTMLButtonElement = document.querySelector(
-      'button.ytp-button:nth-child(9)'
-    );
-    settingsButton.click();
-    settingsButton.click();
-    observer.disconnect();
-    observer.observe(
-      document.querySelector('div.ytp-left-controls > .ytp-time-display > span > .ytp-time-current'),
-      config
-    );
-
-    if (updateElement) {
-      updateElement.parentNode.removeChild(updateElement);
-      updateElement = undefined;
-    }
+  if (videoExists) {
+    setTimeout(main, 2000);
+    return;
   }
-  const speedElement: HTMLDivElement = document.querySelector(
-    'div.ytp-menuitem:nth-last-child(3) > div:nth-child(3)'
-  );
-  const speed: number = !isNaN(Number(speedElement.innerHTML))
-    ? Number(speedElement.innerHTML)
-    : 1;
+  videoExists = true;
+  updateTime(video);
+  video.addEventListener('timeupdate', (): void => updateTime(video));
+  video.addEventListener('ratechange', (): void => updateTime(video));
+  setTimeout(main, 2000);
+}
 
-  let remainingTime: string = document.querySelector(
-    'div.ytp-left-controls > .ytp-time-display > span > span.ytp-time-duration:nth-child(3)'
-  ).innerHTML;
-  if (remainingTime.split(':').length === 2)
-    remainingTime = `0:${remainingTime}`;
-  let remainingDate: Date = new Date(`1970 ${remainingTime}`);
-  let currentTime: string = document.querySelector(
-    'div.ytp-left-controls > .ytp-time-display > span > .ytp-time-current'
-  ).innerHTML;
-  if (currentTime.split(':').length === 2) currentTime = `0:${currentTime}`;
-  remainingDate = toUTC(remainingDate);
-  remainingDate.setTime(
-    (remainingDate.getTime() -
-      toUTC(new Date(`1970 ${currentTime}`)).getTime()) /
-      speed
-  );
-  remainingDate = toLocal(remainingDate);
+function updateTime(video: HTMLVideoElement): void {
+  const remainingTime: number =
+    (video.duration - video.currentTime) / video.playbackRate;
+
   if (!updateElement) {
-    observer.observe(
-      document.querySelector(
-        'div.ytp-menuitem:nth-last-child(3) > div:nth-child(3)'
-      ),
-      config
-    );
     const mainSpan: HTMLSpanElement = document.createElement('span');
     mainSpan.className = 'remaining-time';
     mainSpan.appendChild(
-      document.createTextNode(`(Remaining: ${parseTime(remainingDate)})`)
+      document.createTextNode(`(Remaining: ${parseTime(remainingTime)})`)
     );
 
     const seperatorSpan: HTMLSpanElement = document.createElement('span');
@@ -73,29 +41,23 @@ function main(redirect: boolean = true): void {
     updateElement = timeDisplay.appendChild(mainSpan);
     return;
   }
-  updateElement.innerHTML = `(Remaining: ${parseTime(remainingDate)})`;
+  updateElement.innerHTML = `(Remaining: ${parseTime(remainingTime)})`;
 }
 
 main();
 
-function parseTime(time: Date): string {
-  let result: string = '';
-  if (time.getHours() !== 0) {
-    result += `${time.getHours()}:`;
-    if (time.getMinutes() < 10) result += '0';
-  }
-  result += `${time.getMinutes()}:`;
-  if (time.getSeconds() < 10) result += '0';
-  result += time.getSeconds();
-  return result;
-}
-
-function toUTC(time: Date): Date {
-  time.setMinutes(time.getMinutes() - time.getTimezoneOffset());
-  return time;
-}
-
-function toLocal(time: Date): Date {
-  time.setMinutes(time.getMinutes() + time.getTimezoneOffset());
-  return time;
+function parseTime(time: number): string {
+  let date = new Date(time * 1000).toISOString();
+  // If less than 10 minutes
+  if (time < 600) return date.substring(15, 19);
+  // If less than 1 hour
+  else if (time < 3600) return date.substring(14, 19);
+  // If less than 10 hours
+  else if (time < 36000) return date.substring(12, 19);
+  // If less than 24 hours
+  else if (time < 86400) return date.substring(11, 19);
+  else
+    return date
+      .substring(9, 19)
+      .replace(/^.T/, (str: string): string => `${Number(str[0]) - 1}D`);
 }
