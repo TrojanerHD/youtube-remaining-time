@@ -30,14 +30,14 @@ function updateTime(video: HTMLVideoElement): void {
       document.createTextNode(`(Remaining: ${parseTime(remainingTime)})`)
     );
 
-    const seperatorSpan: HTMLSpanElement = document.createElement('span');
-    seperatorSpan.appendChild(document.createTextNode(' '));
+    const separatorSpan: HTMLSpanElement = document.createElement('span');
+    separatorSpan.appendChild(document.createTextNode(' '));
 
     const timeDisplay: HTMLSpanElement = document.querySelector(
       'div.ytp-left-controls > .ytp-time-display > span:nth-child(2)'
     );
 
-    timeDisplay.appendChild(seperatorSpan);
+    timeDisplay.appendChild(separatorSpan);
     updateElement = timeDisplay.appendChild(mainSpan);
     return;
   }
