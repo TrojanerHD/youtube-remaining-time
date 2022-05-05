@@ -3,7 +3,7 @@ let videoExists: boolean = false;
 
 function main(): void {
   const video: HTMLVideoElement = document.querySelector('video');
-  if (video === undefined || window.location.pathname !== '/watch') {
+  if (video === undefined || window.location.pathname !== '/watch' || isNaN(video.duration)) {
     videoExists = false;
     setTimeout(main, 2000);
     return;
