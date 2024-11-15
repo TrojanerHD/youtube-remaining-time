@@ -1,12 +1,16 @@
 {
   "manifest_version": 2,
   "name": "YouTube Remaining Time",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "See how much time is left with your current watch speed",
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
-      "js": ["build/remaining-time.js"]
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "build/remaining-time.js"
+      ]
     }
   ]
 }
