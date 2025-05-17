@@ -34,7 +34,7 @@ function updateTime(video: HTMLVideoElement): void {
     separatorSpan.appendChild(document.createTextNode(' '));
 
     const timeDisplay: HTMLSpanElement = document.querySelector(
-      'div.ytp-left-controls > .ytp-time-display > .ytp-time-wrapper'
+      'div.ytp-left-controls > .ytp-time-display > .ytp-time-wrapper > .ytp-time-contents'
     );
 
     timeDisplay.appendChild(separatorSpan);
