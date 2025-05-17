@@ -8,7 +8,7 @@ On mobile, YouTube can toggle between the total time of the video and time remai
 
 ## Installation
 
-Head over to https://addons.mozilla.org/en-US/firefox/addon/youtube-remaining-time-1/. There should be a popup asking whether you allow the addon to be installed. Click “Add”.
+Head over to https://addons.mozilla.org/en-US/firefox/addon/youtube-remaining-time-1/. Click “Add to Firefox”. There should be a popup asking whether you allow the addon to be installed. Click “Continue to Installation”.
 
 ## Gallery
 
